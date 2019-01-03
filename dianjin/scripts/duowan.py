@@ -153,10 +153,13 @@ def get_content():
         obj.save()
     return '爬取完成'
 
-
+def get_duowan():
+    obj_list = duowan.objects.filter(content='')
+    print()
 
 def run():
-    print(get_id())
-    print(get_content())
+    get_xinlang()
+    #print(get_id())
+    #print(get_content())
 
 

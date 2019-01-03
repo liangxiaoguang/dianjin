@@ -5,6 +5,8 @@ import datetime
 from lxml import etree
 from html.parser import HTMLParser
 import urllib.request
+from django.core.paginator import Paginator
+import json
 
 def get_html(url,Referer,encoding="utf-8",type='json'):
     try:
@@ -152,6 +154,36 @@ def get_content():
 
     return '数据爬取完毕'
 
+def get_xinlang(ps,pn):
+
+    obj_list = xinlang.objects.order_by('-c_time')
+
+    p = Paginator(obj_list, ps)  # 3条数据为一页，实例化分页对象
+
+    data = p.page(pn)
+
+    print(data.object_list[0].c_time)
+
+    datalist=[]
+
+    for data_ in data.object_list:
+
+        dict = {}
+
+        dict['ctime'] = data_.c_time
+
+        dict['title'] = data_.c_title
+
+        dict['content'] = data_.content
+
+        dict['id'] = data_.c_id
+
+        dict['type'] = data_.style
+
+    return datalist
+
+
 def run():
-    print(add_index_to_mysql())
-    print(get_content())
+    get_xinlang(10,1)
+    #print(add_index_to_mysql())
+    #print(get_content())
