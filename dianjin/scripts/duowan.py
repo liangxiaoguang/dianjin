@@ -6,6 +6,7 @@ from lxml import etree
 from html.parser import HTMLParser
 import urllib.request
 import re
+from django.core.paginator import Paginator
 
 def get_html(url,Referer,type='json',encoding="utf-8"):
     try:
@@ -153,13 +154,37 @@ def get_content():
         obj.save()
     return '爬取完成'
 
-def get_duowan():
-    obj_list = duowan.objects.filter(content='')
-    print()
+def get_duowan(ps,pn):
+
+    obj_list = duowan.objects.order_by('-c_time','now_time')
+
+    p = Paginator(obj_list, ps)
+
+    data = p.page(pn)
+
+    datalist=[]
+
+    for data_ in data.object_list:
+
+        dict = {}
+
+        dict['ctime'] = data_.c_time +" 00:00:00"
+
+        dict['title'] = data_.c_title
+
+        dict['content'] = data_.content
+
+        dict['id'] = data_.c_id
+
+        dict['type'] = data_.style
+
+        datalist.append(dict)
+
+    return datalist
 
 def run():
-    get_xinlang()
-    #print(get_id())
-    #print(get_content())
+    #print(get_duowan(10,1))
+    print(get_id())
+    print(get_content())
 
 

@@ -180,6 +180,8 @@ def get_xinlang(ps,pn):
 
         dict['type'] = data_.style
 
+        datalist.append(dict)
+
     return datalist
 
 
