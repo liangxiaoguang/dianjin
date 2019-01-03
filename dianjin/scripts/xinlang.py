@@ -50,7 +50,20 @@ def add_index_to_mysql():
         # 拿到有需要数据的list
         data_list = total_contend.get('game_list').get('result').get('data').get('0')
 
+        '''
+        实际爬取过程中遇到一种情况
+        如果脚本正在运行,然后又有新的新闻加入，导致查重，后面的数据不能被爬取到
+        解决方案，做一个标示，要后面查找的10个都为重复则退出整个函数
+        '''
+
+        tips = 1 #为不是重复
+
+        if tips != 1:
+            return '已完成id接口爬虫，请等待详情页爬取'
+
         for data_ in data_list:
+
+
             # 发表时间
             ctime = data_.get("cTime")
             # id 唯一标识
@@ -64,10 +77,14 @@ def add_index_to_mysql():
             #首先判断该id是否存在如果存在则退出该 ---》***函数***
             one_entry = xinlang.objects.filter(c_id=_id)
             if one_entry.exists():
-                return '已完成id接口爬虫，请等待详情页爬取'
+                #更新标示
+                tips = 0
+                continue
+                #return '已完成id接口爬虫，请等待详情页爬取'
 
             #插入数据
             else:
+                tips = 1
                 xinlang.objects.create(c_id =_id, c_time = ctime,c_title = title)
 
             print(_id)
