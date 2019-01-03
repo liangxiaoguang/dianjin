@@ -36,6 +36,8 @@ def get_id():
 
         i += 1
 
+        tips = 1  # 为不是重复
+
         #组装后面的‘_2’数据,定义为index
         index = ''
 
@@ -69,6 +71,9 @@ def get_id():
                 if len(check_list) == 0:
                     type_list.insert(index_, '其他')
 
+        #判断标示
+        if tips != 1:
+            return '已完成id接口爬虫，请等待详情页爬取'
 
         #print(len(ctitle_list),ctitle_list)
         for index,_id in enumerate(url_and_id_list):
@@ -77,13 +82,13 @@ def get_id():
             #1、首先判断数据库是否有该数据 有的话，就直接退出
             one_entry = duowan.objects.filter(c_id=_id)
             if one_entry.exists():
-                #continue
-                return '已完成id接口爬虫，请等待详情页爬取'
+                tips = 0
+                continue
+                #return '已完成id接口爬虫，请等待详情页爬取'
             #2、写入数据库的逻辑
             else:
-
+                tips = 1
                 duowan.objects.create(c_id=_id, c_time=ctime_list[index], c_title=ctitle_list[index],style=type_list[index])
-        print(i)
 
         time.sleep(5)
 
