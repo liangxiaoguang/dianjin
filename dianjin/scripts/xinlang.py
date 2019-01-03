@@ -184,6 +184,6 @@ def get_xinlang(ps,pn):
 
 
 def run():
-    get_xinlang(10,1)
-    #print(add_index_to_mysql())
-    #print(get_content())
+    #get_xinlang(10,1)
+    print(add_index_to_mysql())
+    print(get_content())
