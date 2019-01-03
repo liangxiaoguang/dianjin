@@ -32,11 +32,13 @@ def get_id():
     #写入10000条
     count = 100
 
+    tips = 1  # 为不是重复
+
     for i in range(100):
 
         i += 1
 
-        tips = 1  # 为不是重复
+
 
         #组装后面的‘_2’数据,定义为index
         index = ''
