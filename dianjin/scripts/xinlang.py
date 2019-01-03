@@ -86,9 +86,6 @@ def add_index_to_mysql():
 
         time.sleep(5)
 
-def get_html_from_id():
-    pass
-
 
 def get_content():
 
@@ -137,4 +134,5 @@ def get_content():
     return '数据爬取完毕'
 
 def run():
+    print(add_index_to_mysql())
     print(get_content())

@@ -149,6 +149,7 @@ def get_content():
 
 
 def run():
+    print(get_id())
     print(get_content())
 
 
