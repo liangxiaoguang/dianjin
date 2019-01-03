@@ -32,6 +32,8 @@ def add_index_to_mysql():
     # 假设开始爬10W条
     count = 100000
 
+    tips = 1  # 为不是重复
+
     for i in range(count):
 
         i += 1
@@ -56,7 +58,7 @@ def add_index_to_mysql():
         解决方案，做一个标示，要后面查找的10个都为重复则退出整个函数
         '''
 
-        tips = 1 #为不是重复
+
 
         if tips != 1:
             return '已完成id接口爬虫，请等待详情页爬取'
