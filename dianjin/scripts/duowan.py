@@ -77,8 +77,8 @@ def get_id():
             #1、首先判断数据库是否有该数据 有的话，就直接退出
             one_entry = duowan.objects.filter(c_id=_id)
             if one_entry.exists():
-                continue
-                #return '已完成id接口爬虫，请等待内容页爬取'
+                #continue
+                return '已完成id接口爬虫，请等待详情页爬取'
             #2、写入数据库的逻辑
             else:
 
@@ -132,8 +132,9 @@ def get_content():
             # urlretrieve() 方法直接将远程数据下载到本地。
             # 如果遇到也没得资源找不到的情况，try 然后跳过
             try:
+                #r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}"
                 urllib.request.urlretrieve(imgurl,
-                                           r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}".format(
+                                           r"/root/img/xinlang{}_{}.{}".format(
                                                id,index,x[-1]))
 
                 #更换图片url
@@ -143,7 +144,7 @@ def get_content():
 
         obj.content = b
         obj.save()
-
+    return '爬取完成'
 
 
 

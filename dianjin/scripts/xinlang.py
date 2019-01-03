@@ -64,7 +64,7 @@ def add_index_to_mysql():
             #首先判断该id是否存在如果存在则退出该 ---》***函数***
             one_entry = xinlang.objects.filter(c_id=_id)
             if one_entry.exists():
-                return '已完成id接口爬虫，请等待内容页爬取'
+                return '已完成id接口爬虫，请等待详情页爬取'
 
             #插入数据
             else:
@@ -122,7 +122,7 @@ def get_content():
             # 如果遇到也没得资源找不到的情况，try 然后跳过
             try:
                 urllib.request.urlretrieve(imgurl,
-                                           r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\xinlang\{}_{}.png".format(
+                                           r"/root/img/xinlang/{}_{}.png".format(
                                                obj.c_id,index))
 
 
@@ -134,7 +134,7 @@ def get_content():
         obj.content = b
         obj.save()
 
-
+    return '数据爬取完毕'
 
 def run():
     print(get_content())
