@@ -142,7 +142,7 @@ def get_content():
             try:
                 #r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}"
                 urllib.request.urlretrieve(imgurl,
-                                           r"/root/img/xinlang{}_{}.{}".format(
+                                           r"/root/img/duowan{}_{}.{}".format(
                                                id,index,x[-1]))
 
                 #更换图片url

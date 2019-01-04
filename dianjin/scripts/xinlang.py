@@ -162,8 +162,6 @@ def get_xinlang(ps,pn):
 
     data = p.page(pn)
 
-    print(data.object_list[0].c_time)
-
     datalist=[]
 
     for data_ in data.object_list:
