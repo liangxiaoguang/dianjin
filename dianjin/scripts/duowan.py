@@ -107,7 +107,7 @@ def get_id():
                     continue
 
                 pic = pic.replace(pic, 'http://47.100.15.193/duowan/{}_{}.{}'.format(
-                    _id, 'homePic', pic.split(".")[-1]))
+                    _id_index, 'homePic', pic.split(".")[-1]))
                 duowan.objects.create(c_id=_id, c_time=ctime_list[index], c_title=ctitle_list[index],style=type_list[index],pic = pic)
 
         time.sleep(5)
