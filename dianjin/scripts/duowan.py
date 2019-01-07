@@ -157,6 +157,7 @@ def get_content():
             # urlretrieve() 方法直接将远程数据下载到本地。
             # 如果遇到也没得资源找不到的情况，try 然后跳过
             try:
+                time.sleep(0.5)
                 #r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}"
                 urllib.request.urlretrieve(imgurl,
                                            r"/root/img/duowan/{}_{}.{}".format(
