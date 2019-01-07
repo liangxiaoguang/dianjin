@@ -142,7 +142,7 @@ def get_content():
             try:
                 #r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}"
                 urllib.request.urlretrieve(imgurl,
-                                           r"/root/img/duowan{}_{}.{}".format(
+                                           r"/root/img/duowan/{}_{}.{}".format(
                                                id,index,x[-1]))
 
                 #更换图片url
@@ -173,6 +173,26 @@ def get_duowan(ps,pn):
         dict['title'] = data_.c_title
 
         dict['content'] = data_.content
+
+        # try:
+        #     dict['content'] = dict['content'].replace(r".jpg/",".jpg")
+        # except:
+        #     pass
+        #
+        # try:
+        #     dict['content'] = dict['content'].replace(r".png/",".png")
+        # except:
+        #     pass
+        #
+        # try:
+        #     dict['content'] = dict['content'].replace(r".jpeg/",".jpeg")
+        # except:
+        #     pass
+        #
+        # try:
+        #     dict['content'] = dict['content'].replace(r".gif/",".gif")
+        # except:
+        #     pass
 
         dict['id'] = data_.c_id
 

@@ -12,6 +12,7 @@ class xinlang(models.Model):
     pic = models.CharField(max_length=500)
     style = models.CharField(max_length=50,default='其他')
 
+
 #多玩
 class duowan(models.Model):
     c_id = models.CharField(max_length=50,unique=True)   #新浪给的id
@@ -22,6 +23,7 @@ class duowan(models.Model):
     pic = models.CharField(max_length=500)
     style = models.CharField(max_length=50,default='其他')
 
+
 #虎扑
 class hupu(models.Model):
     c_id = models.CharField(max_length=50,unique=True)   #新浪给的id
@@ -31,5 +33,6 @@ class hupu(models.Model):
     content = models.TextField()
     pic = models.CharField(max_length=500)
     style = models.CharField(max_length=50,default='其他')
+
 
 

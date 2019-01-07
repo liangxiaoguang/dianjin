@@ -32,7 +32,7 @@ def add_index_to_mysql():
     temporary_list = []
 
     # 假设开始爬10W条
-    count = 100000
+    count = 100
 
     tips = 1  # 为不是重复
 
@@ -75,6 +75,8 @@ def add_index_to_mysql():
             # 标题
             title = data_.get('title')
 
+            homePic = data_.get('homePic')
+
             #temporary_list.append({'ctime': ctime, '_id': _id, 'title': title})
 
             #直接写数据库吧
@@ -89,7 +91,21 @@ def add_index_to_mysql():
             #插入数据
             else:
                 tips = 1
-                xinlang.objects.create(c_id =_id, c_time = ctime,c_title = title)
+
+                #下载图片和更换url
+                try:
+                    urllib.request.urlretrieve(homePic,
+                                               r"/root/img/xinlang/{}_{}.{}".format(
+                                                   _id, 'homePic',homePic.split(".")[-1]))
+                    # 更换图片url
+                except:
+                    continue
+                homePic = homePic.replace(homePic, 'http://47.100.15.193/xinlang/{}_{}.{}'.format(
+                                                   _id, 'homePic',homePic.split(".")[-1]))
+
+                print(homePic)
+
+                xinlang.objects.create(c_id =_id, c_time = ctime,c_title = title,pic=homePic)
 
             print(_id)
 
