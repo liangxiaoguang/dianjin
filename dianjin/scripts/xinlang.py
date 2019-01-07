@@ -94,16 +94,15 @@ def add_index_to_mysql():
 
                 #下载图片和更换url
                 try:
+                    time.sleep(0.5)
                     urllib.request.urlretrieve(homePic,
                                                r"/root/img/xinlang/{}_{}.{}".format(
                                                    _id, 'homePic',homePic.split(".")[-1]))
-                    # 更换图片url
+
                 except:
                     continue
                 homePic = homePic.replace(homePic, 'http://47.100.15.193/xinlang/{}_{}.{}'.format(
                                                    _id, 'homePic',homePic.split(".")[-1]))
-
-                print(homePic)
 
                 xinlang.objects.create(c_id =_id, c_time = ctime,c_title = title,pic=homePic)
 
@@ -193,6 +192,8 @@ def get_xinlang(ps,pn):
         dict['id'] = data_.c_id
 
         dict['type'] = data_.style
+
+        dict['pic'] = data_.pic
 
         datalist.append(dict)
 

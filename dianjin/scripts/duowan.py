@@ -64,6 +64,8 @@ def get_id():
 
         ctitle_list = html.xpath('//a[@class="cover"]//img//@alt')
 
+        pic_list = html.xpath('//a[@class="cover"]//img//@src')
+
         #发现有分类为空的情况，导致数组没有26个值程序报错，对这种情况单独处理
 
         if len(type_list) != 26:
@@ -91,7 +93,22 @@ def get_id():
             #2、写入数据库的逻辑
             else:
                 tips = 1
-                duowan.objects.create(c_id=_id, c_time=ctime_list[index], c_title=ctitle_list[index],style=type_list[index])
+                pic = pic_list[index]
+
+                _id_index  = re.search('/(\d*).html', _id).group(1)
+                # 下载图片和更换url
+                try:
+                    time.sleep(0.5)
+                    urllib.request.urlretrieve(pic,
+                                               r"/root/img/duowan/{}_{}.{}".format(
+                                                   _id_index, 'homePic', pic.split(".")[-1]))
+                    # 更换图片url
+                except:
+                    continue
+
+                pic = pic.replace(pic, 'http://47.100.15.193/duowan/{}_{}.{}'.format(
+                    _id, 'homePic', pic.split(".")[-1]))
+                duowan.objects.create(c_id=_id, c_time=ctime_list[index], c_title=ctitle_list[index],style=type_list[index],pic = pic)
 
         time.sleep(5)
 
@@ -197,6 +214,8 @@ def get_duowan(ps,pn):
         dict['id'] = data_.c_id
 
         dict['type'] = data_.style
+
+        dict['pic'] = data_.pic
 
         datalist.append(dict)
 
