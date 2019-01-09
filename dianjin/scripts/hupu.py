@@ -95,7 +95,7 @@ def inster_content():
     print(len(obj_list))
     for obj in obj_list:
 
-        result,html = get_content('https://bbs.hupu.com/25021882.html')
+        result,html = get_content(obj.c_id)
 
         #
 
@@ -162,8 +162,8 @@ def inster_content():
             except:
                 continue
 
-            print(imgurl)
-            b = b.replace('imgurl','http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),2)
+
+            b = b.replace(imgurl,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),2)
 
         obj.content = b
         obj.c_title = title
@@ -171,7 +171,6 @@ def inster_content():
 
         obj.save()
 
-        break
 
 
 def run():
