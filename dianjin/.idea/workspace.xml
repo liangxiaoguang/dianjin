@@ -81,8 +81,8 @@
       <file leaf-file-name="xinlang.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/xinlang.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13">
-              <caret line="152" column="37" lean-forward="false" selection-start-line="152" selection-start-column="28" selection-end-line="152" selection-end-column="37" />
+            <state relative-caret-position="227">
+              <caret line="167" column="8" lean-forward="true" selection-start-line="167" selection-start-column="8" selection-end-line="168" selection-end-column="18" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -93,8 +93,8 @@
       <file leaf-file-name="hupu.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scripts/hupu.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="151" column="31" lean-forward="true" selection-start-line="151" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
+            <state relative-caret-position="202">
+              <caret line="164" column="14" lean-forward="true" selection-start-line="164" selection-start-column="14" selection-end-line="164" selection-end-column="14" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -141,9 +141,9 @@
       <find>dec</find>
       <find>_src</find>
       <find>em</find>
-      <find>um</find>
-      <find>get_html</find>
       <find>re</find>
+      <find>get_html</find>
+      <find>um</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -609,32 +609,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/WeChat Files/Its_my_sea/Files/test4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dj_app/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="6" column="8" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="8" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/xinlang.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="152" column="37" lean-forward="false" selection-start-line="152" selection-start-column="28" selection-end-line="152" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -649,10 +629,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Documents/WeChat Files/Its_my_sea/Files/test4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/xinlang.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="167" column="8" lean-forward="true" selection-start-line="167" selection-start-column="8" selection-end-line="168" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/hupu.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="151" column="31" lean-forward="true" selection-start-line="151" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
+        <state relative-caret-position="202">
+          <caret line="164" column="14" lean-forward="true" selection-start-line="164" selection-start-column="14" selection-end-line="164" selection-end-column="14" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

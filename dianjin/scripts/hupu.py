@@ -160,8 +160,8 @@ def inster_content():
                 continue
             b = b.replace(imgurl,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
 
-
-        print(b)
+        obj.content = b
+        obj.save()
         #break
 
 def run():
