@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pdb
+from django.core.paginator import Paginator
 import re
 import gevent
 import urllib.request
@@ -164,7 +165,7 @@ def inster_content():
 
 
             b = b.replace(imgurl,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),2)
-        print(b)
+        #print(b)
         obj.content = b
         obj.c_title = title
         obj.c_time = ctime
@@ -172,6 +173,57 @@ def inster_content():
             obj.save()
         except:
             continue
+
+def get_hupu(ps,pn):
+
+    obj_list = hupu.objects.order_by('-c_time','now_time')
+
+    p = Paginator(obj_list, ps)
+
+    data = p.page(pn)
+
+    datalist=[]
+
+    for data_ in data.object_list:
+
+        dict = {}
+
+        dict['ctime'] = data_.c_time
+
+        dict['title'] = data_.c_title
+
+        dict['content'] = data_.content
+
+        # try:
+        #     dict['content'] = dict['content'].replace(r".jpg/",".jpg")
+        # except:
+        #     pass
+        #
+        # try:
+        #     dict['content'] = dict['content'].replace(r".png/",".png")
+        # except:
+        #     pass
+        #
+        # try:
+        #     dict['content'] = dict['content'].replace(r".jpeg/",".jpeg")
+        # except:
+        #     pass
+        #
+        # try:
+        #     dict['content'] = dict['content'].replace(r".gif/",".gif")
+        # except:
+        #     pass
+
+        dict['id'] = data_.c_id
+
+        dict['type'] = data_.style
+
+        dict['pic'] = data_.pic
+
+        datalist.append(dict)
+
+    return datalist
+
 
 
 def run():

@@ -64,3 +64,34 @@ def duowan(request):
 
         re_json = {"succ": False, "data": []}
         return HttpResponse(json.dumps(re_json, ensure_ascii=False), content_type='application/json', charset='utf-8')
+
+
+
+def hupu(request):
+
+
+    ps = request.GET.get("ps", None)
+    pn = request.GET.get("pn", None)
+
+    print(ps,pn)
+
+    if ps is None or pn is None:
+
+        re_json = {"succ": False,  "data": []}
+
+        return HttpResponse(json.dumps(re_json, ensure_ascii=False), content_type='application/json', charset='utf-8')
+
+        #return HttpResponse("参数错误", content_type='application/json',charset='utf-8')
+    try:
+
+        print(get_hupu(ps, pn))
+
+        re_json = {"succ": True, "data": get_duowan(ps,pn)}
+
+
+
+        return HttpResponse(json.dumps(re_json, ensure_ascii=False), content_type='application/json', charset='utf-8')
+    except:
+
+        re_json = {"succ": False, "data": []}
+        return HttpResponse(json.dumps(re_json, ensure_ascii=False), content_type='application/json', charset='utf-8')
