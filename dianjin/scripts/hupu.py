@@ -154,7 +154,7 @@ def inster_content():
             try:
                 time.sleep(0.5)
                 #r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}"
-                urllib.request.urlretrieve(data_list[index_],
+                urllib.request.urlretrieve(new_list[index_],
                                            r"/root/img/hupu/{}_{}.jpg".format(
                                                id,index_))
 
@@ -162,15 +162,17 @@ def inster_content():
             except:
                 continue
 
-            #print(imgurl)
-            b = b.replace(img_list,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
+            print(imgurl)
+            b = b.replace(imgurl,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
 
         obj.content = b
         obj.c_title = title
         obj.c_time = ctime
 
         obj.save()
+
         break
+
 
 def run():
 
