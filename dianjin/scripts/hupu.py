@@ -112,7 +112,7 @@ def inster_content():
         ctime = result.find('span', attrs={'class':'stime'}).text
 
         # 正文
-        content = result.find('table', attrs={'class':'case', 'border':'0', 'cellspacing':'0'}).find('div',attrs={'class':'quote-content'})
+        #content = result.find('table', attrs={'class':'case', 'border':'0', 'cellspacing':'0'}).find('div',attrs={'class':'quote-content'})
 
         selector = etree.HTML(html)
 
@@ -161,6 +161,9 @@ def inster_content():
             b = b.replace(imgurl,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
 
         obj.content = b
+        obj.c_title = title
+        obj.c_time = ctime
+      
         obj.save()
         #break
 
