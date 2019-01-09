@@ -84,9 +84,9 @@ def hupu(request):
         #return HttpResponse("参数错误", content_type='application/json',charset='utf-8')
     try:
 
-        print(get_hupu(ps, pn))
+        #print(get_hupu(ps, pn))
 
-        re_json = {"succ": True, "data": get_duowan(ps,pn)}
+        re_json = {"succ": True, "data": get_hupu(ps,pn)}
 
 
 
