@@ -138,11 +138,14 @@ def inster_content():
 
         # print(b)
 
-        #print(img_list)
+        #print(len(img_list))
         if len(data_list) !=0:
-            img_list = img_list[:-len(data_list)] + data_list
+            new_list = img_list[:-len(data_list)] + data_list
+        else:
+            new_list=img_list
+        #print(len(new_list))
 
-        #print(img_list)
+
 
         id = re.search('/(\d*).html', obj.c_id).group(1)
 
@@ -158,7 +161,9 @@ def inster_content():
                 #更换图片url
             except:
                 continue
-            b = b.replace(imgurl,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
+
+            #print(imgurl)
+            b = b.replace(img_list,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
 
         obj.content = b
         obj.c_title = title
