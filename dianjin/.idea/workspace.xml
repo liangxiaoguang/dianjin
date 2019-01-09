@@ -93,8 +93,8 @@
       <file leaf-file-name="hupu.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scripts/hupu.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="165" column="45" lean-forward="false" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
+            <state relative-caret-position="234">
+              <caret line="165" column="87" lean-forward="false" selection-start-line="165" selection-start-column="87" selection-end-line="165" selection-end-column="87" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -651,8 +651,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/hupu.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="165" column="45" lean-forward="false" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
+        <state relative-caret-position="234">
+          <caret line="165" column="87" lean-forward="false" selection-start-line="165" selection-start-column="87" selection-end-line="165" selection-end-column="87" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

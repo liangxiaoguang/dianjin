@@ -163,7 +163,7 @@ def inster_content():
                 continue
 
             print(imgurl)
-            b = b.replace("src="+imgurl,'src=http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
+            b = b.replace('src="'+imgurl+'"','src="http://47.100.15.193/hupu/{}_{}.jpg"'.format(id,index_),1)
 
         obj.content = b
         obj.c_title = title
