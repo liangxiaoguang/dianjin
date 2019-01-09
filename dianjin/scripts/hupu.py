@@ -95,7 +95,7 @@ def inster_content():
     print(len(obj_list))
     for obj in obj_list:
 
-        result,html = get_content(obj.c_id)
+        result,html = get_content('https://bbs.hupu.com/25021882.html')
 
         #
 
@@ -151,7 +151,7 @@ def inster_content():
             try:
                 time.sleep(0.5)
                 #r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}"
-                urllib.request.urlretrieve(imgurl,
+                urllib.request.urlretrieve(data_list[index_],
                                            r"/root/img/hupu/{}_{}.jpg".format(
                                                id,index_))
 
@@ -163,9 +163,9 @@ def inster_content():
         obj.content = b
         obj.c_title = title
         obj.c_time = ctime
-      
+
         obj.save()
-        #break
+        break
 
 def run():
 
