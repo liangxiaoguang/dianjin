@@ -30,12 +30,12 @@ def get_html(url,Referer,type='json',encoding="utf-8"):
 
 def get_id():
 
-    #写入10000条
+    #写入100条
     count = 100
 
     tips = 1  # 为不是重复
 
-    for i in range(100):
+    for i in range(50):
 
         i += 1
 

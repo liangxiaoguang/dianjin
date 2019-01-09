@@ -1,74 +1,181 @@
-from dj_app.models import duowan
 import requests
-import time
-import datetime
+from bs4 import BeautifulSoup
+import pdb
+import re
+import gevent
+import urllib.request
+#from gevent import monkey; monkey.patch_all()
+from gevent.queue import Queue
+from dj_app.models import hupu
 from lxml import etree
 from html.parser import HTMLParser
-import urllib.request
-import re
-
-
-def get_html(url,Referer,type='json',encoding="utf-8"):
+import time
+#返回一个url的text内容
+def get_html(url,headers={},encoding="utf-8"):
     try:
-        headers = {
-            "User-Agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36",
-            "Referer" : Referer
-        }
-        r = requests.get(url,headers=headers, timeout=30)
-        r.raise_for_status()
-        # 这里我们知道百度贴吧的编码是utf-8，所以手动设置的。爬去其他的页面时建议使用：
-        #r.encoding = str(r.apparent_endconding).lower()
-        r.encoding = encoding    #  'utf-8'   #gb2313 utf-8
-        if type == 'json':
-            return r.json()
-        elif type == 'text':
-            return r.text
-    except Exception as e:
-        print(e)
+        rs = requests.get(url, timeout=3,headers=headers)
+        rs.encoding = encoding    #  'utf-8'   #gb2313 utf-8
+        return rs.text
+
+    except:
         return " ERROR "
 
+#返回一个url被修饰后的结果，默认编码格式utf-8，headers为空
+def get_content(url,headers={},encoding="utf-8"):
+    #返回一个html格式的内容
+    html = get_html(url,headers,encoding) 
+    #用lxml解析html格式
+    soup = BeautifulSoup(html, 'lxml')
+    return soup,html
+
+
+def get_bbs_urls(type, page_num=None):
+    """ 
+    type = "lol" or "kog" or "dota2"  "pubg" "ow" "hs" "game"
+    """
+    def _get_content(url, contents):
+        content = get_content(url)
+        return contents.put([ "https://bbs.hupu.com"+x.find('a',attrs={'href': re.compile('(\d)*.html$')}).get('href') for x in content.find('ul',attrs={'class':'for-list'}).find_all('li')])
+    if page_num == None:
+        page_num = 10
+    urls = [f'https://bbs.hupu.com/{type}-postdate-' + str(x) for x in range(1,page_num+1)]
+    gevent_contents = []
+    contents = Queue()
+    for url in urls:
+        gevent_contents.append(gevent.spawn(_get_content, url, contents))
+    gevent.joinall(gevent_contents)
+    result = []
+    while not contents.empty():
+        result += contents.get()
+    return result
+
 def get_id():
+    arr_list = ["lol", "kog", "dota2", "pubg", "ow", "hs", "game"]
 
-    #数据较多 ，读取50页的数据
+    for all_url in arr_list:
 
-    #有五个分类
+        # 写入数据库
+        type = ''
+        if all_url == 'lol':
+            type = '英雄联盟'
+        elif all_url == 'kog':
+            type = '王者荣耀'
+        elif all_url == 'dota2':
+            type = 'DOTA2'
+        elif all_url == 'pubg':
+            type = '绝地求生'
+        elif all_url == 'ow':
+            type = '守望先锋'
+        elif all_url == 'hs':
+            type = '炉石传说'
+        elif all_url == 'game':
+            type = '游戏'
 
-    #王者荣耀
-    count = 100
+        url_list = get_bbs_urls(all_url)
 
-    for i in range(count):
+        for _id in url_list:
 
-        i +=1
+            # 判断重复的
+            one_entry = hupu.objects.filter(c_id=_id)
 
-        url ='https://bbs.hupu.com/kog-postdate-{}'.format(i)
+            if one_entry.exists():
+                continue
+                # return '已完成id接口爬虫，请等待详情页爬取'
+            # 2、写入数据库的逻辑
+            else:
+                print(_id)
+                hupu.objects.create(c_id=_id, style=type)
 
-        html=get_html(url,'https://bbs.hupu.com/kog','text')
+        print('已完成' + all_url + '分类id爬取')
 
+def inster_content():
 
+    obj_list = hupu.objects.filter(content='')
+
+    print(len(obj_list))
+    for obj in obj_list:
+
+        result,html = get_content(obj.c_id)
+
+        #
+
+        try:
+            title = result.find('h1', attrs={'id':'j_data', 'data-maxpage':re.compile('(\d)*')}).text
+            print(obj.c_id)
+        except AttributeError:
+            #在数据库中删除该条数据
+            hupu.objects.filter(c_id=obj.c_id).delete()
+
+            continue
+            # 时间
+
+        ctime = result.find('span', attrs={'class':'stime'}).text
+
+        # 正文
+        content = result.find('table', attrs={'class':'case', 'border':'0', 'cellspacing':'0'}).find('div',attrs={'class':'quote-content'})
+
+        selector = etree.HTML(html)
+
+        rr_html = selector.xpath('//div[@class="quote-content"]')[0]
+
+        div_str = etree.tostring(rr_html, method='html')
 
         # 解析html
-        html = etree.HTML(html)
+        b = HTMLParser().unescape(div_str.decode())
 
-        list = html.xpath('//div[@class="titlelink box"]//a//@href')
+        img_list = selector.xpath('//div[@class="quote-content"]//p//img//@src')
 
-        print(list)
+        data_list = selector.xpath('//div[@class="quote-content"]//p//img//@data-original')
 
-        # for li in range(len(list)):
-        #
-        #     li += 1
-        #
-        #     url_id ='//ul[@class="for-list"]//li[{}]//div[1]//a//@href'.format(li)
-        #
-        #     #第一个标签url
-        #     id = html.xpath(url_id)[0]
-        #     print(id)
-        #     #ctime =html.xpath('//ul[@class="for-list"]//li//div[2]//a[2]//text()')[0]
+        #替换https://b1.hoopchina.com.cn/web/sns/bbs/images/placeholder.png
+
+        # img_list1 = img_list
+        # for index,i in  enumerate(img_list1):
+        #     if i == 'https://b1.hoopchina.com.cn/web/sns/bbs/images/placeholder.png':
+        #         url = '//div[@class="quote-content"]//p//img[{}]//@data-original'.format(index+1)
+        #         print(url)
+        #         img_list[index] = img_list = selector.xpath(url)[0]
+
+        # print(b)
+
+        #print(img_list)
+        if len(data_list) !=0:
+            img_list = img_list[:-len(data_list)] + data_list
+
+        #print(img_list)
+
+        id = re.search('/(\d*).html', obj.c_id).group(1)
+
+        #替换图片
+        for index_,imgurl in enumerate(img_list):
+            try:
+                time.sleep(0.5)
+                #r"C:\Users\liangtian\Desktop\codedemo\reallywork\git\dianjin\img\duowan\{}_{}.{}"
+                urllib.request.urlretrieve(imgurl,
+                                           r"/root/img/hupu/{}_{}.jpg".format(
+                                               id,index_))
+
+                #更换图片url
+            except:
+                continue
+            b = b.replace(imgurl,'http://47.100.15.193/hupu/{}_{}.jpg'.format(id,index_),1)
 
 
-        return
-
-
-
+        print(b)
+        #break
 
 def run():
-    get_id()
+
+    #get_id()
+    inster_content()
+
+
+    #result = get_content(all_urls[0])
+    # # 标题
+    # result.find('h1', attrs={'id':'j_data', 'data-maxpage':re.compile('(\d)*')}).text
+    # # 时间
+    # result.find('span', attrs={'class':'stime'}).text
+    # # 正文
+    # result.find('table', attrs={'class':'case', 'border':'0', 'cellspacing':'0'})
+    # #pdb.set_trace()
+    # print(result)
