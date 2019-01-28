@@ -203,7 +203,7 @@ def inster_content():
 
 def get_hupu(ps,pn):
 
-    obj_list = hupu.objects.order_by('-c_time','now_time')
+    obj_list = hupu.objects.exclude(content='').order_by('-c_time','now_time')
 
     p = Paginator(obj_list, ps)
 
